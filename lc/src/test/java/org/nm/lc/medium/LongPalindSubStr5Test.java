@@ -20,4 +20,11 @@ public class LongPalindSubStr5Test
         String s = inst.longestPalindrome("aacabdkacaa");
         assertEquals("aca", s);
     }
+
+    @Test
+    public void testthree() {
+        LongPalindSubStr5 inst = new LongPalindSubStr5();
+        String s = inst.longestPalindrome("cbbd");
+        assertEquals("bb", s);
+    }
 }

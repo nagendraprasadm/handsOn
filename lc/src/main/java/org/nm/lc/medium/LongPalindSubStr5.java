@@ -12,7 +12,7 @@ public class LongPalindSubStr5
     int l = 0;
     int max = 1;
 
-    public String longestPalindrome(String s) {
+    public String longestPalindromeTLE(String s) {
         int mid = s.length()/2;
         int[][] pal = new int[s.length()][s.length()];
         for(int i = 0; i < s.length() ; i++){
@@ -98,5 +98,42 @@ public class LongPalindSubStr5
             }
             return pal[s][e] == 1;
         }
+    }
+
+    public String longestPalindrome(String s) {
+        int ml = 0;
+        String ms = null;
+        for(int i = 0; i < s.length(); i++){
+            int l1 = palindromLength1(i, s);
+            int l2 = palindromLength2(i, s);
+            l1 = Math.max(l1,l2);
+            if(l1 > ml){
+                ml = l1;
+                int st = i - ((l1-1)/2);
+                int e = i + (l1/2);
+                ms = s.substring(st, e+1);
+            }
+        }
+        return ms;
+    }
+
+    private int palindromLength1(int ix, String s){
+        int ln = 1;
+        int l = ix - 1;
+        int r = ix + 1;
+        while(l >= 0 && r < s.length() && s.charAt(l--) == s.charAt(r++)){
+            ln += 2;
+        }
+        return ln;
+    }
+
+    private int palindromLength2(int ix, String s){
+        int ln = 0;
+        int l = ix;
+        int r = ix + 1;
+        while(l >= 0 && r < s.length() && s.charAt(l--) == s.charAt(r++)){
+            ln += 2;
+        }
+        return ln;
     }
 }
