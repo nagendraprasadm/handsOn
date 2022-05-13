@@ -21,7 +21,7 @@ public class FloodFill733Test extends TestCase
 
     @Test
     public void testtwo(){
-        int[][] res = inst.floodFill(new int[][]{{0,0,0}, {0,1,1}}, 1, 1, 1);
+        int[][] res = inst.floodFill2(new int[][]{{0,0,0}, {0,1,1}}, 1, 1, 1);
         assertNotNull(res);
         logger.info(ArrayUtils.toString(res));
     }

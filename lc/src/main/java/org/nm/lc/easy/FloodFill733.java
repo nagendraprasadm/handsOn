@@ -34,4 +34,24 @@ public class FloodFill733
     private boolean isValid(int i, int j, int[][] image){
         return i >= 0 && j >= 0 && i < image.length && j < image[0].length;
     }
+
+
+    public int[][] floodFill2(int[][] image, int sr, int sc, int newColor) {
+        int sco = image[sr][sc];
+        dfs(sr, sc,newColor, image, sco);
+        return image;
+    }
+
+    private void dfs(int i, int j, int nc, int[][] arr, int sc){
+        if(isValid2(i,j,arr,sc)){
+            arr[i][j] = nc;
+            for(int k = 0; k < dir.length; k++){
+                dfs(i + dir[k][0], j + dir[k][1], nc, arr, sc);
+            }
+        }
+    }
+
+    private boolean isValid2(int i, int j, int[][] arr, int sc){
+        return i >=0 && j >= 0 && i < arr.length && j < arr[0].length && arr[i][j] == sc;
+    }
 }
