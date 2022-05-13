@@ -1,66 +1,29 @@
 package org.nm.lc.medium;
 
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class zz01Matrix542
 {
-    private int[][] dir = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+    int[] DIR = new int[]{0, 1, 0, -1, 0};
+    public int[][] updateMatrix(int[][] mat) {
+        int m = mat.length, n = mat[0].length; // The distance of cells is up to (M+N)
+        Queue<int[]> q = new ArrayDeque<>();
+        for (int r = 0; r < m; ++r)
+            for (int c = 0; c < n; ++c)
+                if (mat[r][c] == 0) q.offer(new int[]{r, c});
+                else mat[r][c] = -1; // Marked as not processed yet!
 
-    public int[][] updateMatrix (int[][] mat)
-    {
-        int m = mat.length;
-        int n = mat[0].length;
-        int[][] res = new int[mat.length][mat[0].length];
-        for (int i = 0; i < m; i++) {
-            Arrays.fill(res[i], -1);
-        }
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (mat[i][j] == 0) {
-                    res[i][j] = 0;
-                }
-                else {
-                    boolean[][] trk = new boolean[mat.length][mat[0].length];
-                    res[i][j] = bfs(i, j, mat, trk);
-                }
+        while (!q.isEmpty()) {
+            int[] curr = q.poll();
+            int r = curr[0], c = curr[1];
+            for (int i = 0; i < 4; ++i) {
+                int nr = r + DIR[i], nc = c + DIR[i+1];
+                if (nr < 0 || nr == m || nc < 0 || nc == n || mat[nr][nc] != -1) continue;
+                mat[nr][nc] = mat[r][c] + 1;
+                q.offer(new int[]{nr, nc});
             }
         }
-        return res;
-    }
-
-    private int bfs (int i, int j, int[][] mat, boolean[][] trk)
-    {
-
-        Queue<int[]> queue = new LinkedList<>();
-        int lvl = 1;
-        queue.add(new int[] { i, j });
-        while (!queue.isEmpty()) {
-            int sz = queue.size();
-            for (int k = 0; k < sz; k++) {
-                int[] cell = queue.poll();
-                for (int l = 0; l < dir.length; l++) {
-                    int nr = cell[0] + dir[l][0];
-                    int nc = cell[1] + dir[l][1];
-                    if (isValid(nr, nc, mat, trk)) {
-                        if (mat[nr][nc] == 0) {
-                            return lvl;
-                        }
-                        else {
-                            queue.add(new int[] { nr, nc });
-                        }
-                    }
-                }
-            }
-            lvl++;
-        }
-        return 0;
-    }
-
-    private boolean isValid (int i, int j, int[][] mat, boolean[][] trk)
-    {
-        return i >= 0 && j >= 0 && i < mat.length && j < mat[0].length && !trk[i][j];
+        return mat;
     }
 }
