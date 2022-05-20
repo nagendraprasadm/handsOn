@@ -24,4 +24,14 @@ public class TreeNode
         this.left = left;
         this.right = right;
     }
+
+    public TreeNode setRight(TreeNode right){
+        this.right = right;
+        return this;
+    }
+
+    public TreeNode setLeft(TreeNode left){
+        this.left = left;
+        return this;
+    }
 }
