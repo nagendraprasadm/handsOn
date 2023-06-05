@@ -34,4 +34,31 @@ public class MergeSortedArray84
         }
         //nums1 = res;
     }
+    public void mergeInPlace(int[] nums1, int m, int[] nums2, int n) {
+        int s = nums1.length - 1;
+        int i = m-1;
+        while(i >= 0){
+            nums1[s--] = nums1[i--];
+        }
+        i = nums1.length - m;
+        int j = 0;
+        int ri = 0;
+        while(i < (m+n) && j < n){
+            if(nums1[i] < nums2[j] ){
+                nums1[ri++] = nums1[i];
+                i++;
+            }else{
+                nums1[ri++] = nums2[j];
+                j++;
+            }
+        }
+        while(j < n){
+            nums1[ri++] = nums2[j++];
+        }
+        while(i < m){
+            nums1[ri++] = nums1[i++];
+        }
+    }
+
+
 }

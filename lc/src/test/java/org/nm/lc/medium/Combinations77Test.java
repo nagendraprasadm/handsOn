@@ -12,7 +12,7 @@ public class Combinations77Test
 
     @Test
     public void testone() {
-        List<List<Integer>> res = inst.combine(10, 3);
+        List<List<Integer>> res = inst.combineV3(4, 2);
         assertNotNull(res);
     }
 }
